@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Task;
+use Laravel\Sanctum\Sanctum;
 
 class TaskControllerTest extends TestCase
 {
@@ -20,7 +21,7 @@ class TaskControllerTest extends TestCase
     public function test_can_get_tasks(): void
     {
         $user = User::factory()->create();
-        $this->actingAs($user);
+        Sanctum::actingAs($user);
         Task::factory()->count(3)->create(['user_id' => $user->id]);
 
         $anotherUser = User::factory()->create();
@@ -52,7 +53,7 @@ class TaskControllerTest extends TestCase
     public function test_can_create_task()
     {
         $user = User::factory()->create();
-        $this->actingAs($user);
+        Sanctum::actingAs($user);
 
         $taskData = [
             'name' => 'New Task',
@@ -81,7 +82,7 @@ class TaskControllerTest extends TestCase
     public function test_can_update_task()
     {
         $user = User::factory()->create(); 
-        $this->actingAs($user); 
+        Sanctum::actingAs($user); 
 
         $task = Task::factory()->create(['user_id' => $user->id]);
 
@@ -113,7 +114,7 @@ class TaskControllerTest extends TestCase
     public function test_user_can_mark_own_task_as_complete ()
     {
         $user = User::factory()->create(); 
-        $this->actingAs($user); 
+        Sanctum::actingAs($user); 
 
         $task = Task::factory()->create(['user_id' => $user->id]);
 
@@ -139,7 +140,7 @@ class TaskControllerTest extends TestCase
     public function test_user_can_mark_own_task_as_incomplete ()
     {
         $user = User::factory()->create(); 
-        $this->actingAs($user); 
+        Sanctum::actingAs($user); 
 
         $task = Task::factory()->create(['user_id' => $user->id]);
 
@@ -165,7 +166,7 @@ class TaskControllerTest extends TestCase
     public function test_can_delete_task() 
     {
         $user = User::factory()->create(); 
-        $this->actingAs($user); 
+        Sanctum::actingAs($user); 
 
         $task = Task::factory()->create(['user_id' => $user->id]);
 
@@ -192,7 +193,7 @@ class TaskControllerTest extends TestCase
     {
         $user = User::factory()->create(); 
         $anotherUser = User::factory()->create(); 
-        $this->actingAs($user); 
+        Sanctum::actingAs($user); 
 
         $task = Task::factory()->create(['user_id' => $anotherUser->id]); 
 
@@ -219,7 +220,7 @@ class TaskControllerTest extends TestCase
     {
         $user = User::factory()->create(); 
         $anotherUser = User::factory()->create(); 
-        $this->actingAs($user); 
+        Sanctum::actingAs($user); 
 
         $task = Task::factory()->create(['user_id' => $anotherUser->id]); 
 

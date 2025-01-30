@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +28,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/tasks/{task}/incomplete', [TaskController::class, 'markIncomplete'])->name('tasks.incomplete');
     Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
 });
+
+Route::post('/register', [RegisterController::class, 'register']);
