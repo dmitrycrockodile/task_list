@@ -1,0 +1,665 @@
+openapi: 3.0.3
+info:
+  title: Laravel
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/tasks:
+    get:
+      summary: 'Display a listing of the user tasks filtered by "is_completed" status.'
+      operationId: displayAListingOfTheUserTasksFilteredByisCompletedStatus
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      name: 'Task Name'
+                      description: 'Task Description'
+                      is_completed: false
+                      user_id: 1
+                    -
+                      id: 2
+                      name: 'Another Task'
+                      description: 'Another Task Description'
+                      is_completed: true
+                      user_id: 2
+                  success: true
+                  message: 'Tasks retrieved successfully.'
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        name: 'Task Name'
+                        description: 'Task Description'
+                        is_completed: false
+                        user_id: 1
+                      -
+                        id: 2
+                        name: 'Another Task'
+                        description: 'Another Task Description'
+                        is_completed: true
+                        user_id: 2
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        name:
+                          type: string
+                          example: 'Task Name'
+                        description:
+                          type: string
+                          example: 'Task Description'
+                        is_completed:
+                          type: boolean
+                          example: false
+                        user_id:
+                          type: integer
+                          example: 1
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Tasks retrieved successfully.'
+        500:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data: 'Full error message'
+                  success: false
+                  message: 'Failed to retrieve tasks.'
+                properties:
+                  data:
+                    type: string
+                    example: 'Full error message'
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Failed to retrieve tasks.'
+      tags:
+        - Endpoints
+    post:
+      summary: 'Store a newly created task in storage.'
+      operationId: storeANewlyCreatedTaskInStorage
+      description: ''
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 1
+                    name: 'Buy groceries'
+                    description: 'Buy milk, eggs, and bread'
+                    is_completed: false
+                    user_id: 1
+                  success: true
+                  message: 'Task created successfully.'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'Buy groceries'
+                      description:
+                        type: string
+                        example: 'Buy milk, eggs, and bread'
+                      is_completed:
+                        type: boolean
+                        example: false
+                      user_id:
+                        type: integer
+                        example: 1
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Task created successfully.'
+        400:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  message: "Validation error: The 'name' field is required."
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Validation error: The 'name' field is required."
+        500:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  message: 'Failed to create the task.'
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Failed to create the task.'
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'The name of the task.'
+                  example: '"Buy groceries"'
+                  nullable: false
+                description:
+                  type: string
+                  description: 'The description of the task.'
+                  example: '"Buy milk, eggs, and bread"'
+                  nullable: false
+              required:
+                - name
+                - description
+  '/api/tasks/{id}':
+    put:
+      summary: 'Update the specified task in storage.'
+      operationId: updateTheSpecifiedTaskInStorage
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 1
+                    name: 'Buy groceries'
+                    description: 'Buy milk, eggs, and bread'
+                    is_completed: true
+                    user_id: 1
+                  success: true
+                  message: 'Task updated successfully.'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'Buy groceries'
+                      description:
+                        type: string
+                        example: 'Buy milk, eggs, and bread'
+                      is_completed:
+                        type: boolean
+                        example: true
+                      user_id:
+                        type: integer
+                        example: 1
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Task updated successfully.'
+        400:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  message: "Validation error: The 'name' field is required."
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: "Validation error: The 'name' field is required."
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  message: 'Task not found.'
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Task not found.'
+        500:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  message: 'Failed to update the task.'
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Failed to update the task.'
+      tags:
+        - Endpoints
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'The name of the task.'
+                  example: '"Buy groceries"'
+                  nullable: false
+                description:
+                  type: string
+                  description: 'The description of the task.'
+                  example: '"Buy milk, eggs, and bread"'
+                  nullable: false
+                is_completed:
+                  type: boolean
+                  description: 'The completion status of the task.'
+                  example: true
+                  nullable: false
+    delete:
+      summary: 'Remove the specified resource from storage.'
+      operationId: removeTheSpecifiedResourceFromStorage
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: true
+                  message: 'Task deleted successfully.'
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Task deleted successfully.'
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  message: 'Task not found.'
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Task not found.'
+        500:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  message: 'Failed to delete the task.'
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Failed to delete the task.'
+      tags:
+        - Endpoints
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the task.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  '/api/tasks/{task_id}/complete':
+    put:
+      summary: 'Update the specified task''s "is_completed" status to true in storage.'
+      operationId: updateTheSpecifiedTasksisCompletedStatusToTrueInStorage
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 1
+                    name: 'Buy groceries'
+                    description: 'Buy milk, eggs, and bread'
+                    is_completed: true
+                    user_id: 1
+                  success: true
+                  message: 'Task marked as complete.'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'Buy groceries'
+                      description:
+                        type: string
+                        example: 'Buy milk, eggs, and bread'
+                      is_completed:
+                        type: boolean
+                        example: true
+                      user_id:
+                        type: integer
+                        example: 1
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Task marked as complete.'
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  message: 'Task not found.'
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Task not found.'
+        500:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  message: 'Failed to update the task.'
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Failed to update the task.'
+      tags:
+        - Endpoints
+    parameters:
+      -
+        in: path
+        name: task_id
+        description: 'The ID of the task.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  '/api/tasks/{task_id}/incomplete':
+    put:
+      summary: 'Update the specified task''s "is_completed" status to false in storage.'
+      operationId: updateTheSpecifiedTasksisCompletedStatusToFalseInStorage
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 1
+                    name: 'Buy groceries'
+                    description: 'Buy milk, eggs, and bread'
+                    is_completed: false
+                    user_id: 1
+                  success: true
+                  message: 'Task marked as incomplete.'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'Buy groceries'
+                      description:
+                        type: string
+                        example: 'Buy milk, eggs, and bread'
+                      is_completed:
+                        type: boolean
+                        example: false
+                      user_id:
+                        type: integer
+                        example: 1
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Task marked as incomplete.'
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  message: 'Task not found.'
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Task not found.'
+        500:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  message: 'Failed to update the task.'
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Failed to update the task.'
+      tags:
+        - Endpoints
+    parameters:
+      -
+        in: path
+        name: task_id
+        description: 'The ID of the task.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/register:
+    post:
+      summary: 'Register the user'
+      operationId: registerTheUser
+      description: ''
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data: john@example.com
+                  success: true
+                  message: 'User registered successfully.'
+                properties:
+                  data:
+                    type: string
+                    example: john@example.com
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'User registered successfully.'
+        400:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  message: 'Validation failed.'
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Validation failed.'
+        500:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  success: false
+                  message: 'Failed to register the user.'
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'Failed to register the user.'
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'The name of the user.'
+                  example: '"John Doe"'
+                  nullable: false
+                email:
+                  type: string
+                  description: 'The email of the user.'
+                  example: '"john@example.com"'
+                  nullable: false
+                password:
+                  type: string
+                  description: 'The password for the user.'
+                  example: '"secretpassword"'
+                  nullable: false
+              required:
+                - name
+                - email
+                - password
+      security: []
+tags:
+  -
+    name: Endpoints
+    description: ''
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: 'You can retrieve your token by visiting your dashboard and clicking <b>Generate API token</b>.'
+security:
+  -
+    default: []

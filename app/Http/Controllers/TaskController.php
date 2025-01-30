@@ -14,6 +14,35 @@ class TaskController extends Controller
     /**
      * Display a listing of the user tasks filtered by "is_completed" status.
      * 
+     * @authenticated
+     * 
+     * @response 200 {
+     *    "data": [
+     *        {
+     *            "id": 1,
+     *            "name": "Task Name",
+     *            "description": "Task Description",
+     *            "is_completed": false,
+     *            "user_id": 1
+     *        },
+     *        {
+     *            "id": 2,
+     *            "name": "Another Task",
+     *            "description": "Another Task Description",
+     *            "is_completed": true,
+     *            "user_id": 2
+     *        }
+     *    ],
+     *    "success": true,
+     *    "message": "Tasks retrieved successfully."
+     * }
+     * 
+     * @response 500 {
+     *    "data": "Full error message",
+     *    "success": false,
+     *    "message": "Failed to retrieve tasks."
+     * }
+     * 
      * @return JsonResponse
      */
     public function index(): JsonResponse
@@ -36,6 +65,33 @@ class TaskController extends Controller
 
     /**
      * Store a newly created task in storage.
+     * 
+     * @authenticated
+     * 
+     * @bodyParam name string required The name of the task. Example: "Buy groceries"
+     * @bodyParam description string required The description of the task. Example: "Buy milk, eggs, and bread"
+     *
+     * @response 201 {
+     *    "data": {
+     *        "id": 1,
+     *        "name": "Buy groceries",
+     *        "description": "Buy milk, eggs, and bread",
+     *        "is_completed": false,
+     *        "user_id": 1
+     *    },
+     *    "success": true,
+     *    "message": "Task created successfully."
+     * }
+     * 
+     * @response 400 {
+     *    "success": false,
+     *    "message": "Validation error: The 'name' field is required."
+     * }
+     *
+     * @response 500 {
+     *    "success": false,
+     *    "message": "Failed to create the task."
+     * }
      * 
      * @param StoreRequest $request
      * @return JsonResponse
@@ -63,6 +119,39 @@ class TaskController extends Controller
     /**
      * Update the specified task in storage.
      * 
+     * @authenticated
+     * 
+     * @bodyParam name string The name of the task. Example: "Buy groceries"
+     * @bodyParam description string The description of the task. Example: "Buy milk, eggs, and bread"
+     * @bodyParam is_completed boolean The completion status of the task. Example: true
+     *
+     * @response 200 {
+     *    "data": {
+     *        "id": 1,
+     *        "name": "Buy groceries",
+     *        "description": "Buy milk, eggs, and bread",
+     *        "is_completed": true,
+     *        "user_id": 1
+     *    },
+     *    "success": true,
+     *    "message": "Task updated successfully."
+     * }
+     *
+     * @response 400 {
+     *    "success": false,
+     *    "message": "Validation error: The 'name' field is required."
+     * }
+     *
+     * @response 404 {
+     *    "success": false,
+     *    "message": "Task not found."
+     * }
+     *
+     * @response 500 {
+     *    "success": false,
+     *    "message": "Failed to update the task."
+     * }
+     * 
      * @param UpdateRequest $request
      * @param Task $task
      * @return JsonResponse
@@ -87,6 +176,30 @@ class TaskController extends Controller
     /**
      * Update the specified task's "is_completed" status to true in storage.
      * 
+     * @authenticated
+     *
+     * @response 200 {
+     *    "data": {
+     *        "id": 1,
+     *        "name": "Buy groceries",
+     *        "description": "Buy milk, eggs, and bread",
+     *        "is_completed": true,
+     *        "user_id": 1
+     *    },
+     *    "success": true,
+     *    "message": "Task marked as complete."
+     * }
+     *
+     * @response 404 {
+     *    "success": false,
+     *    "message": "Task not found."
+     * }
+     *
+     * @response 500 {
+     *    "success": false,
+     *    "message": "Failed to update the task."
+     * }
+     * 
      * @param Task $task
      * @return JsonResponse
      */
@@ -109,6 +222,30 @@ class TaskController extends Controller
     /**
      * Update the specified task's "is_completed" status to false in storage.
      * 
+     * @authenticated
+     *
+     * @response 200 {
+     *    "data": {
+     *        "id": 1,
+     *        "name": "Buy groceries",
+     *        "description": "Buy milk, eggs, and bread",
+     *        "is_completed": false,
+     *        "user_id": 1
+     *    },
+     *    "success": true,
+     *    "message": "Task marked as incomplete."
+     * }
+     *
+     * @response 404 {
+     *    "success": false,
+     *    "message": "Task not found."
+     * }
+     *
+     * @response 500 {
+     *    "success": false,
+     *    "message": "Failed to update the task."
+     * }
+     * 
      * @param Task $task
      * @return JsonResponse
      */
@@ -130,6 +267,23 @@ class TaskController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * 
+     * @authenticated
+     *
+     * @response 200 {
+     *    "success": true,
+     *    "message": "Task deleted successfully."
+     * }
+     *
+     * @response 404 {
+     *    "success": false,
+     *    "message": "Task not found."
+     * }
+     *
+     * @response 500 {
+     *    "success": false,
+     *    "message": "Failed to delete the task."
+     * }
      * 
      * @param Task $task
      * @return JsonResponse

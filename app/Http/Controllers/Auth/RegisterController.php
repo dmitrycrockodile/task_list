@@ -14,6 +14,26 @@ class RegisterController extends Controller
     /**
      * Register the user
      * 
+     * @bodyParam name string required The name of the user. Example: "John Doe"
+     * @bodyParam email string required The email of the user. Example: "john@example.com"
+     * @bodyParam password string required The password for the user. Example: "secretpassword"
+     *
+     * @response 201 {
+     *    "data": "john@example.com",
+     *    "success": true,
+     *    "message": "User registered successfully."
+     * }
+     *
+     * @response 400 {
+     *    "success": false,
+     *    "message": "Validation failed."
+     * }
+     *
+     * @response 500 {
+     *    "success": false,
+     *    "message": "Failed to register the user."
+     * }
+     * 
      * @param RegisterRequest $request
      * @return JsonResponse
      */
