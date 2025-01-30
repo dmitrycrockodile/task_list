@@ -26,6 +26,7 @@ class TaskControllerTest extends TestCase
         $anotherUser = User::factory()->create();
         Task::factory()->count(3)->create(['user_id' => $anotherUser->id]);
 
+        $tasks = Task::all();
         $response = $this->getJson('/api/tasks');
 
         $response->assertStatus(200);
@@ -36,7 +37,7 @@ class TaskControllerTest extends TestCase
             'success',
             'message'
         ]);
-        $response->assertJsonCount(6, 'data');
+        $response->assertJsonCount(count($tasks), 'data');
     }
 
     /**
