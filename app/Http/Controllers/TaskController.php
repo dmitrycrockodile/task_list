@@ -13,8 +13,10 @@ class TaskController extends Controller
 {
     /**
      * Display a listing of the user tasks filtered by "is_completed" status.
+     * 
+     * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
         try {
             $tasks = Task::with('user')
@@ -23,7 +25,7 @@ class TaskController extends Controller
                          ->orderBy('tasks.is_completed')
                          ->select('tasks.*')
                          ->get();
-            
+
             return $this->successResponse($tasks, 'Tasks retrieved successfully.');
         } catch (QueryException $e) {
             return $this->errorResponse('Database error.', 'Failed to retrieve tasks.');
@@ -34,6 +36,9 @@ class TaskController extends Controller
 
     /**
      * Store a newly created task in storage.
+     * 
+     * @param StoreRequest $request
+     * @return JsonResponse
      */
     public function store(StoreRequest $request): JsonResponse
     {
@@ -57,6 +62,10 @@ class TaskController extends Controller
 
     /**
      * Update the specified task in storage.
+     * 
+     * @param UpdateRequest $request
+     * @param Task $task
+     * @return JsonResponse
      */
     public function update(UpdateRequest $request, Task $task): JsonResponse
     {
@@ -77,6 +86,9 @@ class TaskController extends Controller
 
     /**
      * Update the specified task's "is_completed" status to true in storage.
+     * 
+     * @param Task $task
+     * @return JsonResponse
      */
     public function markComplete(Task $task): JsonResponse 
     {
@@ -95,7 +107,10 @@ class TaskController extends Controller
     }
 
     /**
-     * Update the specified task's "is_completed" status to true in storage.
+     * Update the specified task's "is_completed" status to false in storage.
+     * 
+     * @param Task $task
+     * @return JsonResponse
      */
     public function markIncomplete(Task $task): JsonResponse 
     {
@@ -115,6 +130,9 @@ class TaskController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * 
+     * @param Task $task
+     * @return JsonResponse
      */
     public function destroy(Task $task): JsonResponse
     {
@@ -134,6 +152,11 @@ class TaskController extends Controller
 
     /**
      * Common method for successful responses
+     * 
+     * @param mixed $data The data to be included in the response
+     * @param string $message The success message
+     * @param int $statusCode The HTTP status code (default is 200 OK)
+     * @return JsonResponse
      */
     protected function successResponse($data, string $message, int $statusCode = Response::HTTP_OK): JsonResponse
     {
@@ -146,6 +169,11 @@ class TaskController extends Controller
 
     /**
      * Common method for error responses
+     * 
+     * @param mixed $error The exception details
+     * @param string $message The error message
+     * @param int $statusCode The HTTP status code (default is 500 Internal Server Error)
+     * @return JsonResponse
      */
     protected function errorResponse($error, string $message, int $statusCode = Response::HTTP_INTERNAL_SERVER_ERROR): JsonResponse
     {
