@@ -100,7 +100,7 @@ php artisan test --filter TaskControllerTest
 **Description:** Retrieves a list of tasks for the authenticated user.  
 **Response:** A confirmation message and a list of the tasks in JSON format.
 
-```http
+```bash
   GET /api/tasks
 ```
 
@@ -108,7 +108,7 @@ php artisan test --filter TaskControllerTest
 **Description:** Creates a new task. Requires a JSON payload with `name` and `description`.  
 **Response:** A confirmation message and the created task in JSON format.
 
-```http
+```bash
   POST /api/tasks
 ```
 
@@ -116,14 +116,14 @@ php artisan test --filter TaskControllerTest
 **Description:** Updates an existing task. Requires the task `id` and updated data (`name`, `description`).  
 **Response:** A confirmation message and the updated task in JSON format.
 
-```http
+```bash
   PUT /api/tasks/{task}
 ```
 
 #### Mark task as complete
 **Description:** Marks the task as complete.  
 **Response:** A confirmation message indicating that the task is marked as complete and the marked task in JSON format.
-```http
+```bash
   PUT /api/tasks/{task}/complete
 ```
 
@@ -131,7 +131,7 @@ php artisan test --filter TaskControllerTest
 **Description:** Marks the task as incomplete.  
 **Response:** A confirmation message indicating that the task is marked as incomplete and the marked task in JSON format.
 
-```http
+```bash
   PUT /api/tasks/{task}/incomplete
 ```
 
@@ -139,7 +139,7 @@ php artisan test --filter TaskControllerTest
 **Description:** Deletes the specified task.  
 **Response:** A confirmation message indicating that the task is deleted.
 
-```http
+```bash
   DELETE /api/tasks/{task}
 ```
 ## Pre-created users
