@@ -31,6 +31,9 @@ yarn-error.log
 # Docker
 .docker
 
+# Scribe
+.scribe
+
 # Ignore various backup and temporary files
 *.bak
 *.swp
