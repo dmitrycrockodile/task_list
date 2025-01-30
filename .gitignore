@@ -1,19 +1,44 @@
-/.phpunit.cache
+# Laravel & PHP
+/vendor
 /node_modules
-/public/build
-/public/hot
 /public/storage
 /storage/*.key
-/vendor
+.phpunit.result.cache
+/.phpunit.cache
+/.vscode
+/.idea
+
+# Laravel generated files
+/public/build
+/public/hot
+/public/uploads
+
+# Environment files
 .env
 .env.backup
 .env.production
-.phpunit.result.cache
 Homestead.json
 Homestead.yaml
-auth.json
+
+# NPM and Yarn logs
 npm-debug.log
 yarn-error.log
+
+# Logs
+/storage/logs/*.log
+/storage/debugbar/*
+
+# Docker
+.docker
+
+# Ignore various backup and temporary files
+*.bak
+*.swp
+*.swo
+*.tmp
+
+# Sensitive authentication credentials
+auth.json
+
+# IDE configuration
 /.fleet
-/.idea
-/.vscode

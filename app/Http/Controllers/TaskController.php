@@ -23,7 +23,7 @@ class TaskController extends Controller
                          ->orderBy('tasks.is_completed')
                          ->select('tasks.*')
                          ->get();
-    
+            
             return $this->successResponse($tasks, 'Tasks retrieved successfully.');
         } catch (QueryException $e) {
             return $this->errorResponse('Database error.', 'Failed to retrieve tasks.');
