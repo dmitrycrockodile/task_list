@@ -29,7 +29,7 @@ class RegisterController extends Controller
             ]);
 
             return response()->json([
-                'data' => $user,
+                'data' => $user['email'],
                 'success' => true,
                 'message' => 'User registered successfully.',
             ], Response::HTTP_CREATED);

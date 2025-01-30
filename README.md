@@ -93,6 +93,7 @@ You can run the tests using PHPUnit to ensure everything is working correctly:
 ```bash
 docker exec -it <container_name> bash
 php artisan test --filter TaskControllerTest
+php artisan test --filter RegisterControllerTest
 ```
 ## Testing the API Endpoints
 
@@ -141,6 +142,14 @@ php artisan test --filter TaskControllerTest
 
 ```bash
   DELETE /api/tasks/{task}
+```
+
+#### Register user
+**Description:** Registers a user. Requires a JSON payload with `name`, `email` `password` and `password_confirmation`.  
+**Response:** A confirmation message and the registered user email in JSON format.
+
+```bash
+  POST /api/register
 ```
 ## Pre-created users
 

@@ -3,9 +3,8 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use App\Models\User;
 
-class UserRegistrationTest extends TestCase
+class RegisterControllerTest extends TestCase
 {
     use RefreshDatabase;
 
