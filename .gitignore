@@ -38,7 +38,6 @@ yarn-error.log
 *.bak
 *.swp
 *.swo
-*.tmp
 
 # Sensitive authentication credentials
 auth.json

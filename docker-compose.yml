@@ -19,9 +19,18 @@ services:
       dockerfile: _docker/app/Dockerfile
     volumes: 
       - ./:/var/www/
+    environment:  
+      DB_CONNECTION: ${DB_CONNECTION}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
     depends_on: 
-      - db
+      db:
+        condition: service_healthy
     container_name: task_list_app
+    command: ["/var/www/entrypoint.sh"]
 
   db:
     image: postgres:17.2
@@ -29,9 +38,14 @@ services:
     volumes: 
       - ./tmp/db:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: task_list
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - 8101:5432
     container_name: task_list_db
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME} -d ${DB_DATABASE}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5

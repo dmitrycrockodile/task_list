@@ -16,8 +16,8 @@ use App\Http\Controllers\Auth\RegisterController;
 |
 */
 
+Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
     Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
     Route::put('/tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
     Route::put('/tasks/{task}/complete', [TaskController::class, 'markComplete'])->name('tasks.complete');
