@@ -95,6 +95,11 @@ docker exec -it <container_name> bash
 php artisan test --filter TaskControllerTest
 php artisan test --filter RegisterControllerTest
 ```
+
+## API Base URL
+All API requests should be made to:
+`http://localhost:8876/api`
+
 ## Testing the API Endpoints
 
 #### Get all tasks
