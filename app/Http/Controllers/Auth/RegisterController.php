@@ -30,6 +30,7 @@ class RegisterController extends Controller
      * }
      *
      * @response 500 {
+     *    "error":  "Error message"
      *    "success": false,
      *    "message": "Failed to register the user."
      * }
